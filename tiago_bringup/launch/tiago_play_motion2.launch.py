@@ -48,7 +48,12 @@ def launch_setup(context, *args, **kwargs):
         end_effector = 'no-end-effector'
         ft_sensor = 'no-ft-sensor'
 
-    motions_file = 'tiago_motions_' + get_tiago_hw_suffix(arm=arm,
+    try:
+        # Try to get the config file from the params
+        motions_file = read_launch_argument('play_motion2_config', context)
+    except:
+        # If there is no config file from params, create the path to the default config file
+        motions_file = 'tiago_motions_' + get_tiago_hw_suffix(arm=arm,
                                                           wrist_model=None,
                                                           end_effector=end_effector,
                                                           ft_sensor=ft_sensor,
